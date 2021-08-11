@@ -1,6 +1,7 @@
 const path = require("path");
+const env = require("dotenv").config();
 
-module.exports = {
+module.exports = env => ({
     mode: "production",
     entry: "./index.js",
     output: {
@@ -44,4 +45,4 @@ module.exports = {
             }
         ]
     },
-}
+})
