@@ -1,4 +1,6 @@
-import { func, node, object } from 'prop-types';
+import {
+ bool, func, node, object
+} from 'prop-types';
 import React from 'react';
 import colors from '../enums/colors';
 
@@ -27,8 +29,9 @@ const Button = ({
     onClick,
     children,
     extraCss,
+    disabled,
 }) => (
-    <button type="button" onClick={onClick} css={buttonStyle(extraCss)}>
+    <button type="button" onClick={onClick} css={buttonStyle(extraCss)} disabled={disabled}>
         {children}
     </button>
 );
@@ -37,10 +40,12 @@ Button.propTypes = {
     onClick  : func.isRequired,
     children : node.isRequired,
     extraCss : object,
+    disabled : bool,
 };
 
 Button.defaultProps = {
     extraCss : {},
+    disabled : false,
 }
 
 export default Button;

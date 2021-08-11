@@ -1,8 +1,12 @@
 import { func, string } from 'prop-types';
-import React, { useEffect, useRef } from 'react';
+import React, {
+ useCallback, useEffect, useRef, useState
+} from 'react';
 import colors from '../enums/colors';
 import methods from '../enums/methods';
 import fetchTrelloAPI from '../utils/fetchTrelloAPI';
+import isEmptyStr from '../utils/isEmptryStr';
+import hexToRgb from '../utils/hexToRgb';
 import Button from './Button';
 
 const formStyle = () => ({
@@ -18,14 +22,15 @@ const formStyle = () => ({
     }
 })
 
-const inputStyle = () => ({
+const inputStyle = hasError => ({
     padding      : '.5rem',
     paddingLeft  : '1rem',
     borderRadius : '3px 0 0 3px',
     fontSize     : '1rem',
     fontFamily   : 'OpenSans',
     background   : colors.white,
-    border       : `1px solid ${colors.accent}`,
+    border       : '1px solid',
+    borderColor  : hasError ? colors.error : colors.accent,
     borderRight  : 0,
     outline      : 'none',
     color        : colors.black,
@@ -34,20 +39,30 @@ const inputStyle = () => ({
 
 const buttonStyle = () => ({
     borderRadius : '0 3px 3px 0',
+
+    '&:disabled' : {
+        background  : `rgba(${hexToRgb(colors.white)}, .4) !important`,
+        borderColor : `rgba(${hexToRgb(colors.white)}, .4) !important`,
+        color       : `${colors.white} !important`,
+        cursor      : 'not-allowed !important',
+    }
 })
 
 const AddCard = ({ idList, callback }) => {
     const inputRef = useRef(null);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [hasError, setHasError] = useState(false);
 
     const onSuccess = res => {
         console.log(res);
         inputRef.current.value = null;
+        setIsButtonDisabled(true)
         callback();
     }
 
     const onError = error => {
         console.log(error);
-        inputRef.current.value = null;
+        setHasError(true);
     }
 
     const addToList = () => {
@@ -66,12 +81,30 @@ const AddCard = ({ idList, callback }) => {
                 addToList();
             }
         });
+
+        setIsButtonDisabled(isEmptyStr(inputRef.current.value))
     }, [inputRef]);
+
+    const checkInputVal = useCallback(() => {
+        setIsButtonDisabled(isEmptyStr(inputRef.current.value))
+    })
 
     return (
         <div css={formStyle()}>
-            <input type="text" ref={inputRef} placeholder="Add a card" css={inputStyle()} />
-            <Button type="button" onClick={addToList} extraCss={buttonStyle()}>
+            <input
+                type="text"
+                ref={inputRef}
+                placeholder="Add a card"
+                css={inputStyle(hasError)}
+                onChange={checkInputVal}
+                disabled={hasError}
+            />
+            <Button
+                type="button"
+                onClick={addToList}
+                extraCss={buttonStyle()}
+                disabled={isButtonDisabled}
+            >
                 +
             </Button>
         </div>
