@@ -29,8 +29,6 @@ const buttonStyle = () => ({
 const Login = () => {
     const { setTrelloToken } = useAppState();
 
-    console.log(process.env.REACT_APP_TRELLO_KEY);
-
     return (
         <div css={loginStyle()}>
             <h1>Trello Clone</h1>

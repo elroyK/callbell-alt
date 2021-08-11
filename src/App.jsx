@@ -43,7 +43,6 @@ const globalStyle = () => ({
 })
 
 const App = () => {
-    console.log(process.env.REACT_APP_TRELLO_KEY)
     return (
         <>
             <Global styles={globalStyle()} />
