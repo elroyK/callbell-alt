@@ -220,7 +220,7 @@ rules:
   prefer-const: error
   prefer-destructuring: error
   prefer-exponentiation-operator: error
-  prefer-named-capture-group: error
+  prefer-named-capture-group: 0
   prefer-numeric-literals: error
   prefer-object-spread: error
   prefer-promise-reject-errors: error

@@ -6,13 +6,15 @@ import Card from './Card';
 import AddCard from './AddCard';
 import dragTypes from '../enums/dragTypes';
 import colors from '../enums/colors';
+import hexToRgb from '../utils/hexToRgb';
 
 const listStyle = isOver => ({
-    background   : 'rgba(255,255,255,.2)',
+    background   : isOver ? `rgba(${hexToRgb(colors.accent)}, .2)` : 'rgba(255,255,255,.2)',
     borderRadius : '10px',
     padding      : '1rem',
     border       : '3px solid',
-    borderColor  : isOver ? colors.accent : 'rgba(255,255,255,.2)'
+    borderColor  : isOver ? colors.accent : 'rgba(255,255,255,.2)',
+    transition   : 'all .2s ease-in-out',
 });
 
 const List = ({ list }) => {

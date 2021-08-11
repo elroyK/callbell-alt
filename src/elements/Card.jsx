@@ -15,6 +15,7 @@ const cardStyle = isGrabbing => ({
     display        : 'flex',
     justifyContent : 'space-between',
     cursor         : isGrabbing ? 'grabbing' : 'grab',
+    opacity        : isGrabbing ? 0.3 : 1,
 
     '&:hover' : {
         background : 'rgba(255,255,255,.3)',

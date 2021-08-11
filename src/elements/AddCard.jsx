@@ -28,7 +28,7 @@ const inputStyle = () => ({
     border       : `1px solid ${colors.accent}`,
     borderRight  : 0,
     outline      : 'none',
-    color        : colors.accent,
+    color        : colors.black,
     flexGrow     : '1',
 })
 
