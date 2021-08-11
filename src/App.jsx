@@ -43,6 +43,7 @@ const globalStyle = () => ({
 })
 
 const App = () => {
+    console.log(process.env.REACT_APP_TRELLO_API_BASEURL)
     return (
         <>
             <Global styles={globalStyle()} />
